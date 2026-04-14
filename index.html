@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl-NL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarifoonKaart</title>
+  <meta name="description" content="MarifoonKaart maakt het eenvoudiger dan ooit om te weten welk marifoonkanaal je moet gebruiken – gewoon op basis van waar je bent. Geen gedoe meer met zoeken in kaarten, websites of ouderwetse almanakken.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MarifoonKaart">
+  <meta property="og:description" content="MarifoonKaart maakt het eenvoudiger dan ooit om te weten welk marifoonkanaal je moet gebruiken – gewoon op basis van waar je bent. Geen gedoe meer met zoeken in kaarten, websites of ouderwetse almanakken.">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MarifoonKaart">
+  <meta name="twitter:description" content="MarifoonKaart maakt het eenvoudiger dan ooit om te weten welk marifoonkanaal je moet gebruiken – gewoon op basis van waar je bent. Geen gedoe meer met zoeken in kaarten, websites of ouderwetse almanakken.">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #1BADE4;
+      --blue-dark: #0f8dbf;
+      --text: #0a0a0a;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --surface: #f9fafb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 20px 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .nav-logo-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    /* Hero — single column centered */
+    main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 80px;
+      gap: 0;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Status badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      margin-top: 4px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f59e0b;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .badge-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0; }
+    }
+
+    /* Heading */
+    h1 {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    /* Body text */
+    .description {
+      font-size: clamp(15px, 1.5vw, 18px);
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    /* Email form */
+    .signup-form {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .email-input {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+      min-width: 0;
+    }
+
+    .email-input::placeholder {
+      color: #9ca3af;
+    }
+
+    .email-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(27, 173, 228, 0.12);
+    }
+
+    .submit-btn {
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .submit-btn:hover {
+      background: var(--blue-dark);
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    /* Success message */
+    .success-msg {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #166534;
+      font-weight: 500;
+      width: 100%;
+    }
+
+    .success-msg.visible {
+      display: flex;
+    }
+
+    /* Phone mockup */
+    .hero-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .phone-img {
+      width: 220px;
+      height: auto;
+      filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.18));
+    }
+
+    /* Footer */
+    footer {
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      nav {
+        padding: 16px 20px;
+      }
+
+      .phone-img {
+        width: 180px;
+      }
+
+      .input-row {
+        flex-direction: column;
+      }
+
+      .submit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="favicon.png" alt="MarifoonKaart logo">
+      <span class="nav-logo-name">MarifoonKaart</span>
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <main>
+    <div class="hero-image">
+      <img src="app-screenshot.png" alt="MarifoonKaart app op iPhone" class="phone-img">
+    </div>
+
+    <div class="hero-text">
+      <h1>Altijd het juiste<br><span>marifoonkanaal</span></h1>
+
+      <p class="description">
+        We maken het eenvoudiger dan ooit om te weten welk marifoonkanaal je moet gebruiken – gewoon op basis van waar je bent. Geen gedoe meer met zoeken in kaarten, websites of ouderwetse almanakken.
+      </p>
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Binnenkort beschikbaar
+      </div>
+
+      <form class="signup-form" id="signupForm" novalidate>
+        <div class="input-row">
+          <input
+            type="email"
+            class="email-input"
+            id="emailInput"
+            placeholder="jouw@email.nl"
+            required
+            autocomplete="email"
+          >
+          <button type="submit" class="submit-btn">
+            Meld je aan
+          </button>
+        </div>
+        <p class="form-note">Meld je aan en krijg als eerste toegang. Geen spam.</p>
+        <div class="success-msg" id="successMsg">
+          ✓ Gelukt! We laten je weten zodra MarifoonKaart beschikbaar is.
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2025 MarifoonKaart</span>
+  </footer>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const emailInput = document.getElementById('emailInput');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      if (!email || !email.includes('@')) {
+        emailInput.focus();
+        emailInput.style.borderColor = '#ef4444';
+        setTimeout(() => emailInput.style.borderColor = '', 2000);
+        return;
+      }
+
+      // Vervang dit met je eigen form submission (bijv. Formspree, eigen API, etc.)
+      console.log('Signup:', email);
+
+      form.querySelector('.input-row').style.display = 'none';
+      form.querySelector('.form-note').style.display = 'none';
+      successMsg.classList.add('visible');
+    });
+  </script>
+
+</body>
+</html>

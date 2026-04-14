@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://marifoonkaart.app/\")",
+      "Read(//tmp/**)",
+      "WebFetch(domain:marifoonkaart.app)",
+      "WebFetch(domain:framerusercontent.com)",
+      "Bash(curl:*)",
+      "Bash(python3 -m http.server 3000)",
+      "Bash(python3 -c \"from PIL import Image; print\\(''PIL ok''\\)\")",
+      "Bash(python3 -c \"import rembg; print\\(''rembg ok''\\)\")"
+    ]
+  }
+}
