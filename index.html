@@ -352,7 +352,7 @@
     const emailInput = document.getElementById('emailInput');
     const successMsg = document.getElementById('successMsg');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
       const email = emailInput.value.trim();
@@ -363,12 +363,31 @@
         return;
       }
 
-      // Vervang dit met je eigen form submission (bijv. Formspree, eigen API, etc.)
-      console.log('Signup:', email);
+      const btn = form.querySelector('.submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Bezig…';
 
-      form.querySelector('.input-row').style.display = 'none';
-      form.querySelector('.form-note').style.display = 'none';
-      successMsg.classList.add('visible');
+      try {
+        const res = await fetch('https://formspree.io/f/xdayoqoo', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        if (res.ok) {
+          form.querySelector('.input-row').style.display = 'none';
+          form.querySelector('.form-note').style.display = 'none';
+          successMsg.classList.add('visible');
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Meld je aan';
+          emailInput.style.borderColor = '#ef4444';
+          setTimeout(() => emailInput.style.borderColor = '', 2000);
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Meld je aan';
+      }
     });
   </script>
 
